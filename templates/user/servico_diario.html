@@ -1,0 +1,119 @@
+{% extends "user/index.html" %} {% block conteudo %}
+<style type=text/css>
+    font{font-family:verdana;font-size:8pt;color:#1c1c1c;}
+    font.a{font-family:verdana;font-size:8pt;color:#1874cd;}
+    a{font-family:verdana;font-size:8pt;color:#696969;text-decoration:none;}
+    input{background-color:#cccccc;font-family:verdana;font-size:8pt;color:#1c1c1c;}
+    textarea{background-color:#f9f9f9;font-family:verdana;font-size:8pt;color:#1c1c1c;}
+    </style>
+     
+    <script language=javascript>
+    <!--
+    function writ() {
+    f = window.open("orcamento_user","_blank","width=600,height=400");
+    f.document.write(document.editfuspost.news.value);
+    f.document.close();
+  
+    }
+    function autoComplete(cidade) {
+        const destino = ['Salvador', 'Vitória', 'Maceió', 'Ceará','Rio Branco','Macapá', 'Porto Velho', 'Olinda','Aracaju','Capitólio','São Paulo', 'Paraty'];
+        
+              return destino.filter((valor) => {
+                  const valorMinusculo = valor.toLowerCase()
+                  const cidadeMinusculo = cidade.toLowerCase()
+        
+                     return valorMinusculo.includes(cidadeMinusculo)
+                  })
+           }
+    //-->
+    </script>
+    <script language=javascript>
+  
+
+     
+    
+    
+	
+
+
+    </script>
+    </head>
+     
+  
+    <input class=mainoption type="button" name=none4 value="modelo da mensagem" onclick="writ()">
+    </TD>
+    </TR>
+    </FORM>
+    </TABLE>
+     
+
+    <input class="campo" type="text">
+    <ul class="sugestoes"></ul>
+    <label for="busca">Buscar países</label>
+<input type="search" id="busca" list="paises">
+
+<datalist id="destino">
+  <option value="Salvador"></option>
+  <option value="Vitória"></option>
+  <option value="Maceió"></option>
+  <option value="Ceará"></option>  
+  <option value="Rio Branco"></option>  
+  <option value="Macapa"></option>  
+  <option value="Olinda"></option>
+  <option value="Aracaju"></option>
+  <option value="Capitólio"></option>
+  <option value="São Paulo"></option>
+  <option value="Paraty"></option>
+</datalist>
+<li class="nav-item dropdown no-arrow">
+    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+          <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+          <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+        </svg>
+    </a>
+    <!-- Dropdown - User Information -->
+    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+        <a class="dropdown-item" href="#">
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+        </a>
+        <a class="dropdown-item" href="#">
+            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+        </a>
+        <a class="dropdown-item" href="#">
+            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity Log
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#ExemploModalCentralizado">
+            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Sair
+        </a>
+    </div>
+</li>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="TituloModalCentralizado">Pagamento</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Deseja realmente Confirmar o pagamento 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" href="http://www.google.com.br" >Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+                
+    
+
+{%endblock%}

@@ -1,0 +1,54 @@
+{% extends "user/index.html" %} {% block conteudo %}
+  <form method="post" action="/atualiza_usuario">
+ <!-- <div class="form-group">
+    <label for="exampleInputEmail1">Seu nome</label>
+    <input type="text" class="form-control" id="nome_completo" name="nome_completo" aria-describedby="emailHelp" placeholder="Seu email" value="{{nome_completo}}">
+   
+  </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Nome de acesso</label>
+    <input type="text" class="form-control" id="nome_acesso" name="nome_acesso" aria-describedby="emailHelp" placeholder="Seu nome de acesso" value="{{nome_acesso}}">
+
+  </div> -->
+  <div class="form-group">
+    <label for="exampleInputPassword1">Senha</label>
+    <input type="password" class="form-control" id="senha_de_acesso" name="senha_de_acesso"maxlength="10" placeholder="Sua nova senha de acesso">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+
+  <div class="card-body">
+      <div class="table-responsive">
+          <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                  <tr>
+                      <th>ID de usuario</th>
+                      <th>Nome de login</th>
+                      <th>Nome Completo</th>
+                    
+                      
+                   
+
+                  </tr>
+              </thead>
+
+
+
+<tbody>
+                  
+                  <tr>
+                      <td>{{id_nome}}</td>
+                      <td>{{nome_acesso}}</td>
+                      <td>{{nome_completo}}</td>
+
+                     
+                      
+                    
+             
+                     
+                  </tr>
+                     
+               </tbody>
+
+{%endblock%}

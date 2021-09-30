@@ -1,0 +1,364 @@
+{% extends "index.html" %} {% block conteudo %}
+
+<script>
+  
+    function dados_da_tabela() {
+        var tabela = document.getElementById("minhaTabela");
+        var linhas = tabela.getElementsByTagName("tr");
+        console.log('teste')
+        for (var i = 0; i < linhas.length; i++) {
+            var linha = linhas[i];
+            linha.addEventListener("click", function() {
+                //Adicionar ao atual
+                selLinha(this, false); //Selecione apenas um
+                //selLinha(this, true); //Selecione quantos quiser
+            });
+        }
+
+        /**
+        Caso passe true, você pode selecionar multiplas linhas.
+        Caso passe false, você só pode selecionar uma linha por vez.
+        **/
+        function selLinha(linha, multiplos) {
+            console.log('teste1')
+            if (!multiplos) {
+                var linhas = linha.parentElement.getElementsByTagName("tr");
+                for (var i = 0; i < linhas.length; i++) {
+                    var linha_ = linhas[i];
+                    linha_.classList.remove("selecionado");
+                }
+            }
+            linha.classList.toggle("selecionado");
+        }
+
+        /**
+        Exemplo de como capturar os dados
+        **/
+        var btnVisualizar = document.getElementById("visualizarDados");
+
+        btnVisualizar.addEventListener("click", function() {
+            var selecionados = tabela.getElementsByClassName("selecionado");
+            //Verificar se eestá selecionado
+            if (selecionados.length < 1) {
+                alert("Selecione pelo menos uma linha");
+                return false;
+            }
+
+            var dados = "";
+
+            for (var i = 0; i < selecionados.length; i++) {
+                var selecionado = selecionados[i];
+                selecionado = selecionado.getElementsByTagName("td");
+                dados += "ID: " + selecionado[0].innerHTML + " - Nome: " + selecionado[1].innerHTML + " - Idade: " + selecionado[2].innerHTML + "\n";
+            }
+
+            alert(dados);
+
+            document.getElementById("nome_pessoa").value = nome;
+            document.getElementById("result").value = dados;
+
+        });
+    }
+
+
+
+
+
+    function formatar(mascara, documento) {
+        var i = documento.value.length;
+        var saida = mascara.substring(0, 1);
+        var texto = mascara.substring(i)
+
+        if (texto.substring(0, 1) != saida) {
+            documento.value += texto.substring(0, 1);
+        }
+
+    }
+
+    function teste1() {
+        var tabl = document.getElementById('cpf_teste');
+        var l = tabl.rows.length;
+        //alert('Number of table rows: ' + l);
+        var s = '';
+        for (var i = 0; i < l; i++) {
+            var tr = tabl.rows[i];
+            //alert( 'Found ' + tr.nodeName + ' ' + i );
+            var cll = tr.childNodes[0];
+            //alert( 'Found a ' + cll.nodeName );
+            var ct = cll.innerHTML.replace(/<[^<>]+>/g, '');
+            alert(cll.nodeName + ' contains text: ' + ct);
+            s += '|' + cll.innerText;
+        }
+    }
+
+
+
+
+    function valida() {
+
+
+
+        if ((servico1.nome_solicitante.value == "") && (servico1.valor.value == "") ) {
+
+            alert("Campos obrigatórios faltando!");
+            servico1.valor.focus();
+            servico1.servico.focus();
+           
+            return false;
+        }
+    }
+    function validaRadio() {
+        console.log('teste')
+        if (document.form1.criador[0].checked == false 
+          && document.form1.criador[1].checked == false &&
+          document.form1.criador[2].checked ==false) {
+          alert('Por favor, selecione o Tipo de Endereço.');
+          return false;
+        }
+        return true;
+    }
+    function valideCPF(cpf) {
+        var cpf=this.nome.value
+        
+        try {
+         console.log("erro de CPF ");
+         
+         var Soma;
+         var Resto;
+         var strCPF = cpf.replace("-", "").replace(".", "").replace(".", "")
+         Soma = 0;
+         console.log(strCPF);
+         if (strCPF == "00000000000"){
+             alert("CPF Invalido");
+             return false;
+         } 
+ 
+         for (i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+         Resto = (Soma * 10) % 11;
+ 
+         if ((Resto == 10) || (Resto == 11)) Resto = 0;
+         if (Resto != parseInt(strCPF.substring(9, 10))){
+            alert("CPF Invalido");
+            return false;
+         } 
+ 
+         Soma = 0;
+         for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+         Resto = (Soma * 10) % 11;
+ 
+         if ((Resto == 10) || (Resto == 11)) Resto = 0;
+         if (Resto != parseInt(strCPF.substring(10, 11))){
+             alert("CPF Invalido");
+             return false;
+         } 
+    
+         
+ 
+         return true;
+ 
+     } catch (e) {
+        alert("CPF invalido 4 ");
+         return false;
+     }
+    }
+</script>
+
+<style>
+    body {
+        font-family: sans-serif;
+    }
+    
+    #minhaTabela {
+        width: 80%;
+        margin: 0 auto;
+        border: 0;
+        box-shadow: 0 5px 30px darkgrey;
+        border-spacing: 0;
+    }
+    
+    #minhaTabela thead th {
+        font-weight: bold;
+        background-color: black;
+        color: white;
+        padding: 5px 10px;
+    }
+    
+    #minhaTabela tr td {
+        padding: 5px 10px;
+        text-align: center;
+        cursor: pointer;
+        /**importante para não mostrar cursor de texto**/
+    }
+    
+    #minhaTabela tr td:last-child {
+        text-align: right;
+    }
+    /**Cores**/
+    
+    #minhaTabela tr:nth-child(odd) {
+        background-color: #eee;
+    }
+    /**Cor quando passar por cima**/
+    
+    #minhaTabela tr:hover td {
+        background-color: #feffb7;
+    }
+    /**Cor quando selecionado**/
+    
+    #minhaTabela tr.selecionado td {
+        background-color: #aff7ff;
+    }
+    
+    button#visualizarDados {
+        background-color: white;
+        border: 1px solid black;
+        width: 50%;
+        margin: 10px auto;
+        padding: 10px 0;
+        display: block;
+        color: black;
+    }
+</style>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" id="dados" ">CADASTRAR</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
+        <div class="modal-content ">
+                <form name="servico1" onSubmit="return valideCPF()" action="/depositoPrevio" method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="nome ">CPF do Apresentante</label>
+                            <input  type="text" id="nome" name="cpf" maxlength="14" OnKeyPress="formatar( '###.###.###-##', this)" class="form-control">
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="servico">Nome do Apresentante</label>
+                            <input type="text" id="servico" name="nome_solicitante" required class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="servico">Telefone do Apresentante</label>
+                            <input type="text" id="telefone" name="telefone_solicitante" maxlength="11"required class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="servico ">Tipo de Documento</label>
+                            <input type="text" id="documento" name="tipo_documento" required class="form-control">
+                        </div>
+    
+                        <div class="form-group">
+                            <fieldset>
+                                <legend>Escolha seu Criador</legend>
+                                <form name="form1" onSubmit="return validaRadio()">
+                                    <INPUT TYPE="RADIO" NAME="criador" VALUE="Gabriel"> Gabriel
+                                   <INPUT TYPE="RADIO" NAME="criador" VALUE="Natasha"> Natasha 
+                                    <INPUT TYPE="RADIO" NAME="criador" VALUE="Joao Paulo"> Joao Paulo
+                                    <INPUT TYPE="RADIO" NAME="criador" VALUE="Dirce"> Dirce
+                                    <INPUT TYPE="RADIO" NAME="criador" VALUE="Everaldo"> Everaldo
+    
+    
+                                </form>
+                            </fieldset>
+                        </div>
+                        <div class="modal-footer">
+                                <button type="submmit" class="btn btn-primary" onSubmit="return _cpf(cpf)">SALVAR</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
+                              </div>
+                    
+                    
+                        </fieldset>
+
+          
+        </div>
+    </div>
+</div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Registro de depositos prévio
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>CPF</th>
+                                <th>Nome</th>
+                                <th>Documento</th>
+                                <th>Data</th>
+                                <th>Serviços</th>
+                                <th>Apagar</th>
+                             
+        
+                            </tr>
+                        </thead>
+                    
+                        
+                        <tbody>
+                            {%for deposito in depositoGlobal%}
+                            <tr>
+                                <td>{{deposito.cod_deposito}}</td>
+                                <td>{{deposito.cpf_solicitante}}</td>
+                                <td>{{deposito.nome_solicitante}}</td>
+                                <td>{{deposito.tipo_documento}}</td>
+                                <td>{{deposito.data_criacao}}</td>
+                               
+                                
+                                
+                                <td>
+                                    {%if deposito.cod_deposito in servico_ativo%}
+                                    <form method="post" action="/registro/{{deposito.cod_deposito}}">
+                                        <button type="submmit" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                            <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                          </svg>
+                                      	                                             
+                                              
+                                    </form>
+                                      {%else%}
+                                      <form method="post" action="/registro/{{deposito.cod_deposito}}">
+                                        <button type="submmit" class="btn btn-success" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                    <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
+                                                  </svg>
+                                              </button>	                                       
+
+
+                                    </form>	                                  
+
+                                    {%endif%}
+                                 
+                                    
+                                   
+                                  
+                               
+                                </td> 
+                            <td>
+                                <form method="post" action="/apaga_deposito/{{deposito.cod_deposito}}"> 
+                                    <button type="submmit" class="btn btn-danger" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                                      </svg>
+                                       
+                                     </button>
+                                    </form>  
+                                </td>
+                                </tr>
+                                {%endfor%}
+                         </tbody>
+                      
+                    </table>
+        
+        
+                </div>
+            </div>
+        </div>
+      
+
+
+
+
+{%endblock%}
