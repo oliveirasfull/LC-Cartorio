@@ -5,8 +5,8 @@ from caixa import CaixaDiario, depositoPrevio, servicoPrevio
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="dirce",
-  database="CartorioDP",
+  password="root",
+  database="sistema",
   autocommit=True
 )
 
@@ -63,6 +63,47 @@ def busca_deposito():
         lista_0.append(depositos)
         
     return lista_0
+def busca_global_deposito():
+    sql= ("SELECT deposito_previo.iddeposito_previo,deposito_previo.cpf,deposito_previo.nome_solicitante,deposito_previo.tipo_documento,deposito_previo.criador,deposito_previo.data_criacao,deposito_previo.telefone,deposito_previo.Usuario_idUsuario,deposito_previo.pago FROM servico_previo,deposito_previo where servico_previo.deposito_previo_iddeposito_previo = deposito_previo.iddeposito_previo AND realizado =0 GROUP BY iddeposito_previo")
+    #sql = ("SELECT * FROM deposito_previo ORDER BY iddeposito_previo DESC LIMIT 500")
+    mycursor.execute(sql)
+
+    lista_depositos=[]
+    depositos =[]
+    lista_0 = []
+    
+    myresult = mycursor.fetchall()
+    print(myresult)
+
+    for x in myresult:
+        lista_depositos = depositoPrevio(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7],x[8])
+        
+        depositos = depositoPrevio(lista_depositos.cod_deposito,lista_depositos.cpf_solicitante,lista_depositos.nome_solicitante,lista_depositos.tipo_documento,lista_depositos.criador,lista_depositos.data_criacao,lista_depositos.telefone,lista_depositos.usuario,lista_depositos.pago)
+        
+        lista_0.append(depositos)
+        
+    return lista_0
+def pesquisa_deposito():
+    #sql= ("SELECT deposito_previo.iddeposito_previo,deposito_previo.cpf,deposito_previo.nome_solicitante,deposito_previo.tipo_documento,deposito_previo.criador,deposito_previo.data_criacao,deposito_previo.telefone,deposito_previo.Usuario_idUsuario,deposito_previo.pago FROM servico_previo,deposito_previo where servico_previo.deposito_previo_iddeposito_previo = deposito_previo.iddeposito_previo AND deposito_previo.pago =1 and realizado =1  GROUP BY iddeposito_previo")
+    sql = ("SELECT * FROM deposito_previo WHERE pago =1")
+    mycursor.execute(sql)
+
+    lista_depositos=[]
+    depositos =[]
+    lista_0 = []
+    
+    myresult = mycursor.fetchall()
+    print(myresult)
+
+    for x in myresult:
+        lista_depositos = depositoPrevio(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7],x[8])
+        
+        depositos = depositoPrevio(lista_depositos.cod_deposito,lista_depositos.cpf_solicitante,lista_depositos.nome_solicitante,lista_depositos.tipo_documento,lista_depositos.criador,lista_depositos.data_criacao,lista_depositos.telefone,lista_depositos.usuario,lista_depositos.pago)
+        
+        lista_0.append(depositos)
+        
+    return lista_0
+
 def cadastra_deposito(cpf,nome,tipo_documento,criador,data_e_hora_em_texto,telefone,id_user,pago):
         #insert into deposito_previo(cpf,nome_solicitante,tipo_documento,criador,data_criacao,telefone,Usuario_idUsuario) values(' 025-762-354-62  ','LETICIA MARREIRO','TESTE DE REGISTRO COM DIRCE','Dirce','2020-11-26',null,2);
         sql = "INSERT INTO deposito_previo (cpf,nome_solicitante,tipo_documento,criador,data_criacao,telefone,Usuario_idUsuario,pago) VALUES (%s, %s,%s, %s,%s, %s,%s,%s)"

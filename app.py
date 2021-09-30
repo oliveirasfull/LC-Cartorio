@@ -22,8 +22,8 @@ app.secret_key = 'Q1W2E3R4T5Y6'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'dirce'
-app.config['MYSQL_DB'] = 'CartorioDP'
+app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_DB'] = 'sistema'
   
 mysql = MySQL(app) 
 
@@ -229,11 +229,32 @@ def previo():
         
     
     return render_template('admin/cadastro_deposito_previo.html',depositoGlobal= todos_depositos,servico =lista,servico_ativo = deposito_com_servico_aberto1)
+@app.route('/previo_pesquisa')
+def previo_pesquisa():
+    deposito_com_servico_aberto1 =[]
+    orcamento = pesquisa_deposito()
+    deposito_em_aguardo = []
+    todos_depositos = []
+
+
+    deposito_com_servico_aberto = lista_de_depositos_com_servico_aberto()
+    for i in deposito_com_servico_aberto:
+        deposito_com_servico_aberto1.append(i[0])
+    for i in orcamento:
+        if i.pago == 1:
+            deposito_em_aguardo = depositoPrevio(i.cod_deposito,i.cpf_solicitante,i.nome_solicitante,i.tipo_documento,i.criador,i.data_criacao,i.telefone,i.usuario,i.pago)
+            todos_depositos.append(deposito_em_aguardo)
+    
+            
+
+        
+    
+    return render_template('admin/pesquisa_deposito.html',depositoGlobal= todos_depositos,servico =lista,servico_ativo = deposito_com_servico_aberto1)
 
 @app.route('/previo_user')
 def previo_user():
     deposito_com_servico_aberto1 =[]
-    orcamento = busca_deposito()
+    orcamento = busca_global_deposito()
     deposito_em_aguardo = []
     todos_depositos = []
 
@@ -251,6 +272,8 @@ def previo_user():
         
     
     return render_template('user/deposito_previo_user.html',depositoGlobal= todos_depositos,servico =lista,servico_ativo = deposito_com_servico_aberto1)
+
+
 
 @app.route('/apaga_deposito/<cod>' ,methods=['GET', 'POST'])
 def apagar_deposito(cod):
